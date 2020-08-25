@@ -1,6 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.3.3.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'io.freefair.lombok' version '5.1.0'
 	id 'java'
 }
 
@@ -13,7 +14,10 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '2.3.0.RELEASE')
+	implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.3.0.RELEASE')
+	implementation(group: 'org.projectlombok', name: 'lombok', version: '1.18.12')
+
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
