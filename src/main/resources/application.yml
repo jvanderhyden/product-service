@@ -7,3 +7,10 @@ spring:
       database: ${MONGO_PRICE_DB:price}
       host: ${MONGO_HOST:mongo}
       port: ${MONGO_PORT:27017}
+
+redsky:
+  base-url: ${REDSKY_BASE_URL:https://redsky.target.com}
+  connect-timeout: ${REDSKY_CONNECT_TIMEOUT:5000}
+  read-timeout: ${REDSKY_READ_TIMEOUT:5000}
+  excludes: ${REDSKY_EXCLUDES:bulk_ship,available_to_promise_network,question_answer_statistics,rating_and_review_reviews,rating_and_review_statistics,rating_and_review_reviews}
+  key: ${REDSKY_KEY:candidate}

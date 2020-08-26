@@ -5,6 +5,7 @@ import com.myretail.product.dto.ProductDto;
 import com.myretail.product.model.Price;
 import com.myretail.product.repository.PriceRepository;
 import com.myretail.product.service.ProductService;
+import com.myretail.product.service.RedSkyService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,14 +16,18 @@ import java.util.Optional;
 public class ProductServiceImpl implements ProductService {
 
     private final PriceRepository priceRepository;
+    private final RedSkyService redSkyService;
 
     @Override
     public ProductDto find(long id) {
         PriceDto priceDto = priceRepository.findById(id)
                 .map(this::transform)
                 .orElseThrow(RuntimeException::new);
+        String productName = redSkyService.getProductName(id)
+                .orElseThrow(RuntimeException::new);
         return ProductDto.builder()
                 .id(id)
+                .name(productName)
                 .currentPrice(priceDto)
                 .build();
     }
