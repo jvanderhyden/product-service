@@ -1,11 +1,11 @@
 package com.myretail.product.config;
 
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.http.client.support.HttpRequestWrapper;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
@@ -25,20 +25,10 @@ public class RedSkyRequestInterceptor implements ClientHttpRequestInterceptor {
                 .build()
                 .toUri();
 
-        HttpRequest modifiedRequest = new HttpRequest() {
-            @Override
-            public String getMethodValue() {
-                return request.getMethodValue();
-            }
-
+        HttpRequest modifiedRequest = new HttpRequestWrapper(request) {
             @Override
             public URI getURI() {
                 return uri;
-            }
-
-            @Override
-            public HttpHeaders getHeaders() {
-                return request.getHeaders();
             }
         };
 
