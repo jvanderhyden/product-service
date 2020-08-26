@@ -2,14 +2,13 @@ package com.myretail.product.service.impl;
 
 import com.myretail.product.dto.PriceDto;
 import com.myretail.product.dto.ProductDto;
+import com.myretail.product.exception.ValidationException;
 import com.myretail.product.model.Price;
 import com.myretail.product.repository.PriceRepository;
 import com.myretail.product.service.ProductService;
 import com.myretail.product.service.RedSkyService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -33,10 +32,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void save(long id, ProductDto productDto) {
-        PriceDto priceDto = Optional.ofNullable(productDto)
-                .map(ProductDto::getCurrentPrice)
-                .orElseThrow(RuntimeException::new);
+    public void save(long id, PriceDto priceDto) {
+        validatePrice(priceDto);
         Price price = Price.builder()
                 .id(id)
                 .currencyCode(priceDto.getCurrencyCode())
@@ -50,5 +47,17 @@ public class ProductServiceImpl implements ProductService {
                 .value(price.getValue())
                 .currencyCode(price.getCurrencyCode())
                 .build();
+    }
+
+    private void validatePrice(PriceDto priceDto) {
+        if (priceDto == null) {
+            throw new ValidationException("Request must not be empty");
+        }
+        if (priceDto.getValue() == null) {
+            throw new ValidationException("Missing required field: value");
+        }
+        if (priceDto.getCurrencyCode() == null) {
+            throw new ValidationException("Missing required field: currency_code");
+        }
     }
 }

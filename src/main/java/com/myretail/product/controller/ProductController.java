@@ -1,5 +1,6 @@
 package com.myretail.product.controller;
 
+import com.myretail.product.dto.PriceDto;
 import com.myretail.product.dto.ProductDto;
 import com.myretail.product.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -24,8 +25,8 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> putProducts(@PathVariable long id, @RequestBody ProductDto productDto) {
-        productService.save(id, productDto);
+    public ResponseEntity<Void> putProducts(@PathVariable long id, @RequestBody PriceDto priceDto) {
+        productService.save(id, priceDto);
         return ResponseEntity.ok().build();
     }
 }
