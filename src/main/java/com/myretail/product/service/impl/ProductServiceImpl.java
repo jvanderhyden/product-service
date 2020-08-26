@@ -2,6 +2,7 @@ package com.myretail.product.service.impl;
 
 import com.myretail.product.dto.PriceDto;
 import com.myretail.product.dto.ProductDto;
+import com.myretail.product.exception.EntityNotFoundException;
 import com.myretail.product.exception.ValidationException;
 import com.myretail.product.model.Price;
 import com.myretail.product.repository.PriceRepository;
@@ -21,9 +22,9 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto find(long id) {
         PriceDto priceDto = priceRepository.findById(id)
                 .map(this::transform)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new EntityNotFoundException("Price not found"));
         String productName = redSkyService.getProductName(id)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new EntityNotFoundException("Product name not found"));
         return ProductDto.builder()
                 .id(id)
                 .name(productName)

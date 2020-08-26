@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'io.freefair.lombok' version '5.1.0'
 	id 'java'
+	id 'groovy'
 }
 
 group = 'com.myretail'
@@ -18,9 +19,8 @@ dependencies {
 	implementation(group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.3.0.RELEASE')
 	implementation(group: 'org.projectlombok', name: 'lombok', version: '1.18.12')
 
-	testImplementation('org.springframework.boot:spring-boot-starter-test') {
-		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-	}
+	testImplementation(group: 'org.spockframework', name: 'spock-spring', version: '1.2-groovy-2.5')
+	testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.3.0.RELEASE')
 }
 
 test {
