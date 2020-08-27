@@ -1,6 +1,5 @@
-package com.myretail.product.config
+package com.myretail.product.interceptor
 
-import com.myretail.product.interceptor.RedSkyRequestInterceptor
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpRequest
 import org.springframework.http.client.ClientHttpRequestExecution
