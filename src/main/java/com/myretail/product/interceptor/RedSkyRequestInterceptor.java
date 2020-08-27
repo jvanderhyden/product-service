@@ -1,4 +1,4 @@
-package com.myretail.product.config;
+package com.myretail.product.interceptor;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpRequest;

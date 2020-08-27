@@ -1,9 +1,9 @@
 package com.myretail.product.service;
 
-import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public interface RedSkyService {
 
-    Optional<String> getProductName(long id);
+    CompletableFuture<String> getProductName(long id);
 
 }
