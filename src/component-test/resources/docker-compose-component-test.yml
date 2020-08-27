@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+
+  product:
+    image: myretail/product
+    depends_on:
+      - mongo
+    ports:
+      - 8080:8080
+    environment:
+      REDSKY_BASE_URL: http://mockserver:1080
+
+  mongo:
+    image: mongo:3.6.17-xenial
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: user
+
+  mockserver:
+    image: mockserver/mockserver:mockserver-5.11.1
+    environment:
+      MOCKSERVER_LIVENESS_HTTP_GET_PATH: /health

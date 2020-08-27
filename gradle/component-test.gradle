@@ -1,0 +1,24 @@
+sourceSets {
+    componentTest {
+        groovy.srcDir file('src/component-test/groovy')
+        resources.srcDir file('src/component-test/resources')
+        compileClasspath += sourceSets.main.output + configurations.testRuntime
+        runtimeClasspath += output + compileClasspath
+    }
+}
+
+configurations {
+    componentTestImplementation.extendsFrom testImplementation
+    componentTestRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
+task componentTest(type: Test) {
+    dependsOn(bootBuildImage)
+    description = 'Run component tests'
+    group = 'verification'
+    testClassesDirs = sourceSets.componentTest.output.classesDirs
+    classpath = sourceSets.componentTest.runtimeClasspath
+    mustRunAfter test
+}
+
+check.dependsOn componentTest

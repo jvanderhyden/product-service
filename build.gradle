@@ -6,6 +6,8 @@ plugins {
 	id 'groovy'
 }
 
+apply from: "$rootDir/gradle/component-test.gradle"
+
 group = 'com.myretail'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
@@ -21,8 +23,14 @@ dependencies {
 
 	testImplementation(group: 'org.spockframework', name: 'spock-spring', version: '1.2-groovy-2.5')
 	testImplementation(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '2.3.0.RELEASE')
+	testImplementation(group: 'org.testcontainers', name: 'spock', version: '1.14.3')
+	testImplementation(group: 'org.mock-server', name: 'mockserver-client-java', version: '5.11.1')
 }
 
 test {
 	useJUnitPlatform()
+}
+
+bootBuildImage {
+	imageName = "myretail/product"
 }
