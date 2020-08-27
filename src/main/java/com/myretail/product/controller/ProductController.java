@@ -32,6 +32,9 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> putProducts(@PathVariable long id, @RequestBody PriceDto priceDto) {
+        if (priceDto == null || priceDto.getValue() == null || priceDto.getCurrencyCode() == null) {
+            return ResponseEntity.badRequest().build();
+        }
         priceService.savePrice(id, priceDto);
         return ResponseEntity.ok().build();
     }

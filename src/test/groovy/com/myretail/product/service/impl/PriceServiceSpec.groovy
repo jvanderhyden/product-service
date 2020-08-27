@@ -1,7 +1,6 @@
 package com.myretail.product.service.impl
 
 import com.myretail.product.dto.PriceDto
-import com.myretail.product.exception.ValidationException
 import com.myretail.product.model.Price
 import com.myretail.product.repository.PriceRepository
 import spock.lang.Specification
@@ -81,64 +80,5 @@ class PriceServiceSpec extends Specification {
         priceDto
         priceDto.value == value
         priceDto.currencyCode == currencyCode
-    }
-
-    def 'validatePrice - missing priceDto'() {
-        when:
-        priceService.validatePrice(null)
-
-        then:
-        0 * _
-
-        and:
-        thrown(ValidationException)
-    }
-
-    def 'validatePrice - missing value'() {
-        given:
-        PriceDto priceDto = PriceDto.builder()
-                .build()
-
-        when:
-        priceService.validatePrice(priceDto)
-
-        then:
-        0 * _
-
-        and:
-        thrown(ValidationException)
-    }
-
-    def 'validatePrice - missing currencyCode'() {
-        given:
-        PriceDto priceDto = PriceDto.builder()
-                .value(BigDecimal.valueOf(11))
-                .build()
-
-        when:
-        priceService.validatePrice(priceDto)
-
-        then:
-        0 * _
-
-        and:
-        thrown(ValidationException)
-    }
-
-    def 'validatePrice - happy path'() {
-        given:
-        PriceDto priceDto = PriceDto.builder()
-                .value(BigDecimal.valueOf(11))
-                .currencyCode("foo")
-                .build()
-
-        when:
-        priceService.validatePrice(priceDto)
-
-        then:
-        0 * _
-
-        and:
-        noExceptionThrown()
     }
 }

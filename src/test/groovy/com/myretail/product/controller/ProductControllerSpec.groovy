@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity
 import spock.lang.Specification
 import spock.lang.Unroll
 
-
 class ProductControllerSpec extends Specification {
 
     PriceService mockPriceService = Mock()
@@ -66,6 +65,7 @@ class ProductControllerSpec extends Specification {
         long id = 101
         PriceDto priceDto = PriceDto.builder()
                 .value(BigDecimal.valueOf(11))
+                .currencyCode("foo")
                 .build()
 
         when:
@@ -78,5 +78,28 @@ class ProductControllerSpec extends Specification {
         and:
         !responseEntity.body
         responseEntity.statusCode == HttpStatus.OK
+    }
+
+    @Unroll
+    def 'putProducts - bad request'() {
+        given:
+        long id = 101
+
+        when:
+        ResponseEntity<ProductDto> responseEntity = productController.putProducts(id, priceDto)
+
+        then:
+        0 * _
+
+        and:
+        !responseEntity.body
+        responseEntity.statusCode == HttpStatus.BAD_REQUEST
+
+        where:
+        priceDto                                                 | _
+        PriceDto.builder().value(BigDecimal.valueOf(11)).build() | _
+        PriceDto.builder().currencyCode("foo").build()           | _
+        PriceDto.builder().build()                               | _
+        null                                                     | _
     }
 }
