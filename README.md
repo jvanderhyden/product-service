@@ -63,7 +63,7 @@ $ ./gradlew test
 Component tests are executed against a transient environment that consists of the application, a MongoDB instance and a mock server to stand in for the RedSky API. Component tests can be run via the **componentTest** Gradle task by executing the following from the project root:
 
 ```
-$ $ ./gradlew componentTest
+$ ./gradlew componentTest
 ```
 
 ## APIs
