@@ -98,4 +98,4 @@ Example response:
 }
 ```
 
-
+The API will provide as much information as it is able to provide. If neither the price database nor RedSky have any record matching the requested ID, the API will respond with a 404.
