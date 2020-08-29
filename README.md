@@ -66,6 +66,8 @@ Component tests are executed against a transient environment that consists of th
 $ ./gradlew componentTest
 ```
 
+> Docker is required to execute component tests.
+
 ## APIs
 
 #### PUT /products/{id}
