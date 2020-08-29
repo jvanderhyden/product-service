@@ -45,20 +45,17 @@ class PriceServiceSpec extends Specification {
                 .value(value)
                 .currencyCode(currencyCode)
                 .build()
-        Price price
 
         when:
         priceService.savePrice(id, priceDto)
 
         then:
-        1 * mockPriceRepository.save({ price = it })
+        1 * mockPriceRepository.save({
+            it.id == id
+            it.value == value
+            it.currencyCode == currencyCode
+        })
         0 * _
-
-        and:
-        price
-        price.id == id
-        price.value == value
-        price.currencyCode == currencyCode
     }
 
     def 'transform - happy path'() {

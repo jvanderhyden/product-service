@@ -5,7 +5,7 @@ spring:
       username: ${MONGO_USER:root}
       password: ${MONGO_PASSWORD:password}
       database: ${MONGO_PRICE_DB:price}
-      host: ${MONGO_HOST:mongo}
+      host: ${MONGO_HOST:localhost}
       port: ${MONGO_PORT:27017}
 
 redsky:
